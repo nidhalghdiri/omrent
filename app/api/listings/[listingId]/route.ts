@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import getCurentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
+import { ObjectId } from "mongodb"; // Ensure the ObjectId import for MongoDB
 
 interface IParams {
   listingId?: string;
