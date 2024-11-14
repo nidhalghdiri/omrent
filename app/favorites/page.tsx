@@ -4,7 +4,10 @@ import getFavoriteListings from "../actions/getFavoriteListings";
 import FavoritesClient from "./FavoritesClient";
 
 const FavoritesPage = async () => {
-  const listings = await getFavoriteListings();
+  const listings = await getFavoriteListings().catch((error) => {
+    console.error(error);
+    return []; // or handle the error as needed
+  });
   const currentUser = await getCurentUser();
 
   if (listings.length === 0) {

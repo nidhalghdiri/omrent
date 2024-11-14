@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import useSearchModal from "@/app/hooks/useSearchModal";
 import Modal from "./Modal";
-import { useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import dynamic from "next/dynamic";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
@@ -161,16 +161,18 @@ const SearchModal = () => {
   }
 
   return (
-    <Modal
-      isOpen={searchModal.isOpen}
-      onClose={searchModal.onClose}
-      onSubmit={onSubmit}
-      title="Filters"
-      actionLabel={actionLabel}
-      secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
-      secondaryActionLabel={secondaryActionLabel}
-      body={bodyContent}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Modal
+        isOpen={searchModal.isOpen}
+        onClose={searchModal.onClose}
+        onSubmit={onSubmit}
+        title="Filters"
+        actionLabel={actionLabel}
+        secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
+        secondaryActionLabel={secondaryActionLabel}
+        body={bodyContent}
+      />
+    </Suspense>
   );
 };
 
